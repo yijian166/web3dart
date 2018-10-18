@@ -91,8 +91,8 @@ class FinalizedTransaction {
 		_function = function;
 	}
 
-	Future<RawTransaction> _asRaw(Web3Client client) async {
-		var nonce = base._forceNonce ?? await client.getTransactionCount(base._keys.address);
+	Future<RawTransaction> _asRaw(Web3Client client, {BlockNum atBlock}) async {
+		var nonce = base._forceNonce ?? await client.getTransactionCount(base._keys.address, atBlock: atBlock);
 
 		var gasPrice = (base._gasPrice ?? await client.getGasPrice()).getInWei.toInt();
 
@@ -107,9 +107,9 @@ class FinalizedTransaction {
 	}
 
 	/// Sends this transaction to the Ethereum client.
-	Future<List<int>> send(Web3Client client) {
-		return _asRaw(client).then((raw) {
-			return client.sendRawTransaction(base._keys, raw);
+	Future<List<int>> send(Web3Client client, {int chainId = 1, BlockNum atBlock}) {
+		return _asRaw(client, atBlock: atBlock).then((raw) {
+			return client.sendRawTransaction(base._keys, raw, chainId: chainId);
 		});
 	}
 
