@@ -35,6 +35,9 @@ Credentials fromHex = Credentials.fromPrivateKeyHex("c87509a[...]dc0d3");
 var rng = new Random.secure();
 Credentials random = Credentials.createRandom(rng);
 
+// or same time Credentials only need address, for example: get contracts balance
+Credentials cb = Credentials.createOnlyHasAddress(EthereumAddress('0xsswe[...]sa4'))
+
 // In either way, the library can derive the public key and the address
 // from a private key:
 var address = fromHex.address.hex;
