@@ -108,6 +108,12 @@ class Credentials {
 
   const Credentials._(this.privateKey, this.publicKey, this.address);
 
+  /// Credentials onley has address
+  /// Sometime only need address, for example: get contract balance
+  static Credentials createOnlyHasAddress(EthereumAddress address) {
+    return new Credentials._(BigInt.one, BigInt.one, address);
+  }
+
   /// Creates credentials by random. Useful to set up a new Ethereum address.
   /// When calling this method, make sure to use a cryptographically safe
   /// number generator.

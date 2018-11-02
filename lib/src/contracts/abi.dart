@@ -148,7 +148,11 @@ class ContractABI {
 
 		for (var element in data) {
 			String name = element["name"];
-			var mutability = _parseMutability(element["stateMutability"]);
+			final _stateMutability = element["stateMutability"];
+			if (_stateMutability == null) {
+				continue;
+			}
+			var mutability = _parseMutability(_stateMutability);
 
 			var type = element["type"];
 			if (type == "event") 
